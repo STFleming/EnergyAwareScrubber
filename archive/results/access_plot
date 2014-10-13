@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#cat /dev/null > avr_res0.csv
+#./hb_feature_detection 0
+
+     #create the gnuplot script file
+     echo "set datafile separator \",\"" > _temp.gnu
+     echo "set terminal postscript colour solid lw 1 \"Helvetica\" 14" >> _temp.gnu
+     echo "set output \"$1.ps\" " >> _temp.gnu
+#     echo "set format y \"%X\";" >> _temp.gnu
+     echo "set ylabel \"Power\"" >> _temp.gnu
+     echo "set xlabel \"Time\"" >> _temp.gnu
+     
+ #    echo "set yrange [0x38FB6700:0x390AA940]" >> _temp.gnu
+ #    echo "set xrange [5100:5250]" >> _temp.gnu
+
+     echo "plot \"$1\" using 1:2 with linespoints title \"VccInt\", \"$1\" using 1:3 with linespoints title \"VccPInt\", \"$1\" using 1:4 with linespoints title \"VccAux\", \"$1\" using 1:5 with linespoints title \"VccPAux\", \"$1\" using 1:7 with linespoints title \"Vcc1V5_PS\", \"$1\" using 1:9 with linespoints title \"VccBRAM\"" >> _temp.gnu
+     #plot the graph
+     gnuplot _temp.gnu
+
+     #convert hb_fd_res.ps hb_fd_res.jpg
+
+     scp $1.ps sf306@ee-ganymede.ee.ic.ac.uk:~/Dropbox
+
+     echo " Results are now plotted."
